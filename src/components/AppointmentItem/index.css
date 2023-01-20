@@ -1,1 +1,32 @@
-/* Write your CSS here */
+.appointment-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #b5b7c4;
+  border-radius: 5px;
+  width: 200px;
+  height: 80px;
+  padding: 3px;
+  margin-right: 20px;
+  margin-bottom: 12px;
+}
+.name-star-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px;
+}
+.star-btn {
+  background-color: transparent;
+  border: none;
+}
+.title-css {
+  font-size: 13px;
+  font-weight: 500;
+}
+.date-css {
+  font-size: 13px;
+  font-weight: 500;
+  padding-bottom: 7px;
+}
+.star {
+  width: 15px;
+}

@@ -95,4 +95,10 @@
 }
 .appointments-list {
   display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
+.appointment-form {
+  display: flex;
+  flex-direction: column;
 }

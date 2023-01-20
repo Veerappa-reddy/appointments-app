@@ -1,30 +1,87 @@
 import {Component} from 'react'
 
+import {v4 as uuidv4} from 'uuid'
+
+import AppointmentItem from '../AppointmentItem'
+
 import './index.css'
 
 class Appointments extends Component {
-  state = {userTitle: '', userDate: '', appointmentsList: []}
+  state = {userTitle: '', enrollDate: '', appointmentsList: []}
 
   addTitle = event => {
-    this.setState({userDate: event.target.value})
+    this.setState({userTitle: event.target.value})
   }
 
   addDate = event => {
-    this.setState({userDate: event.target.value})
+    this.setState({enrollDate: event.target.value})
   }
 
   addAppointment = event => {
     event.preventDefault()
+
+    const {userTitle, enrollDate} = this.state
+
+    const appointment = {
+      id: uuidv4(),
+      title: userTitle,
+      date: enrollDate,
+      isStarred: false,
+    }
+
+    this.setState(prevState => ({
+      appointmentsList: [...prevState.appointmentsList, appointment],
+      userTitle: '',
+      enrollDate: '',
+    }))
+  }
+
+  toggleStar = id => {
+    const {appointmentsList} = this.state
+
+    this.setState(prevState => ({
+      appointmentsList: prevState.appointmentsList.map(appointment => {
+        if (appointment.id === id) {
+          return {...appointment, isStarred: !appointment.isStarred}
+        }
+        return appointment
+      }),
+    }))
+  }
+
+  filterAppointments = () => {
+    const {appointmentsList} = this.state
+
+    this.setState(prevState => ({
+      appointmentsList: prevState.appointmentsList.filter(
+        appointment => appointment.isStarred === true,
+      ),
+    }))
+  }
+
+  renderAppointments = () => {
+    const {appointmentsList} = this.state
+
+    return appointmentsList.map(eachAppointment => (
+      <AppointmentItem
+        appointmentDetails={eachAppointment}
+        key={eachAppointment.id}
+        toggleStar={this.toggleStar}
+        starredAppointments={this.starredAppointments}
+      />
+    ))
   }
 
   render() {
+    const {userTitle, enrollDate} = this.state
+
     return (
       <div className="app-container">
         <div className="card-container">
           <div className="top-card-container">
             <div className="add-appointment-container">
               <h1 className="heading">Add Appointment</h1>
-              <form onSubmit={this.addAppointment}>
+              <form onSubmit={this.addAppointment} className="appointment-form">
                 <label className="title" htmlFor="title">
                   Title
                 </label>
@@ -34,6 +91,7 @@ class Appointments extends Component {
                   className="title-input"
                   placeholder="Title"
                   onChange={this.addTitle}
+                  value={userTitle}
                 />
 
                 <label className="date" htmlFor="date">
@@ -45,6 +103,7 @@ class Appointments extends Component {
                   placeholder="dd/mm/yyyy"
                   className="date-input"
                   onChange={this.addDate}
+                  value={enrollDate}
                 />
 
                 <button className="add-btn" type="submit">
@@ -62,7 +121,11 @@ class Appointments extends Component {
           <div className="bottom-card-container">
             <div className="appointments-container">
               <h1 className="appointments">Appointments</h1>
-              <button type="button" className="starred-btn">
+              <button
+                type="button"
+                className="starred-btn"
+                onClick={this.filterAppointments}
+              >
                 Starred
               </button>
             </div>
