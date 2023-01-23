@@ -1,3 +1,5 @@
+import {format} from 'date-fns'
+
 import './index.css'
 
 const AppointmentItem = props => {
@@ -30,7 +32,9 @@ const AppointmentItem = props => {
             <img src={starImage} alt="star" className="star" />
           </button>
         </div>
-        <p className="date-css">Date {date}</p>
+        <p className="date-css">
+          Date: {format(new Date(date), 'dd MMMM yyyy,EEEE')}
+        </p>
       </div>
     </li>
   )

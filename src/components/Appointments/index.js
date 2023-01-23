@@ -1,5 +1,7 @@
 import {Component} from 'react'
 
+// import {format} from 'date-fns'
+
 import {v4 as uuidv4} from 'uuid'
 
 import AppointmentItem from '../AppointmentItem'
@@ -37,7 +39,7 @@ class Appointments extends Component {
   }
 
   toggleStar = id => {
-    const {appointmentsList} = this.state
+    // const {appointmentsList} = this.state
 
     this.setState(prevState => ({
       appointmentsList: prevState.appointmentsList.map(appointment => {
@@ -50,7 +52,7 @@ class Appointments extends Component {
   }
 
   filterAppointments = () => {
-    const {appointmentsList} = this.state
+    // const {appointmentsList} = this.state
 
     this.setState(prevState => ({
       appointmentsList: prevState.appointmentsList.filter(
@@ -100,7 +102,7 @@ class Appointments extends Component {
                 <input
                   id="date"
                   type="date"
-                  placeholder="dd/mm/yyyy"
+                  placeholder="dd/MM/YYYY"
                   className="date-input"
                   onChange={this.addDate}
                   value={enrollDate}
