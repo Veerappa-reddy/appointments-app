@@ -33,7 +33,7 @@ const AppointmentItem = props => {
           </button>
         </div>
         <p className="date-css">
-          Date: {format(new Date(date), 'dd MMMM yyyy,EEEE')}
+          Date: {format(new Date(date), 'dd MMMM yyyy, EEEE')}
         </p>
       </div>
     </li>
